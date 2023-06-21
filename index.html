@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+<body>
+  <div class="header">
+    <h1>Library</h1>
+    <button id="openBookForm">New Book</button>
+  </div>
+  <div class="content" id="content">
+    
+  </div>
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2>Add New Book</h2>
+      </div>
+      <div class="modal-body">
+        <div>
+          <form action="" class="bookForm">
+            <div>
+              <label for="bookTitle"><h4>Title</h4></label>
+              <input type="text" id="bookTitle" name="bookTitle">
+            </div>
+            <div>
+              <label for="bookAuthor"><h4>Author</h4></label>
+              <input type="text" id="bookAuthor" name="bookAuthor">
+            </div>
+            <div>
+              <label for="bookPageCount"><h4>Pages</h4></label>
+              <input type="number" id="bookPageCount" name="bookPageCount">
+            </div>
+            <br>
+            <div class="formSubmitButton">
+              <button class="submitButton" type="button" onclick="addBookToLibrary()">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <h3>Made by Shade</h3>
+      </div>
+    </div>
+  
+  </div>
+</body>
+</html>
