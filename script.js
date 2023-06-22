@@ -54,7 +54,7 @@ function addBookToLibrary(){
                     + "Author: " + bookAuthor + "<br>"
                     + "Pages: " + bookPages + "</div>"
                     + `<div class='bookButtons'><button class='delButton' onclick='deleteBook(${id})'>DELETE</button>`
-                    + `<button class='readButton' onclick='readBook(${id})'>READ</button></div>`;
+                    + `<button id ='readStatus${id}' class='readButton' onclick='readBook(${id})'>READ</button></div>`;
 
     document.getElementById("content").appendChild(div);
 
@@ -67,10 +67,20 @@ function addBookToLibrary(){
 function deleteBook(id){
     console.log(id);
     cards = document.getElementById(id).remove();
+    myLib = myLib.filter(book => book.id != id);
 
 }
 
 function readBook(id){
+    readButton = document.getElementById("readStatus"+id);
+
+    if (readButton.textContent == "READ"){
+        readButton.textContent = "UNREAD";
+        readButton.style.background = "#FF4FFF";
+    }else{
+        readButton.textContent = "READ";
+        readButton.style.background = "";
+    }
     
 }
 
