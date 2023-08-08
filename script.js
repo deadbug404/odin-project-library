@@ -1,86 +1,86 @@
-//for modal
-var modal = document.getElementById("myModal");
-var btn = document.getElementById("openBookForm");
-var span = document.getElementsByClassName("close")[0];
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-  
-span.onclick = function() {
-    modal.style.display = "none";
-}
-  
-window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-}
+let library = [];
+let openBookModal = document.getElementById('openBookModal');
+let modal = document.getElementById("myModal");
+let span = document.getElementsByClassName("close")[0];
+let submitButton = document.querySelector('.submit-button');
+let container = document.querySelector('.container');
 
-//for books functions
+openBookModal.addEventListener('click',() => modal.style.display = "block");
+span.addEventListener('click', () => modal.style.display = "none");
+submitButton.addEventListener('click',addBookToLibrary);
 
-let myLib = [];
-
-function Book(id,title, author, pages){
-    this.id = id;
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
+function Book(id,title,author,yearPublished){
+    return {
+        id,
+        title,
+        author,
+        yearPublished,
+    };
 }
 
 function addBookToLibrary(){
-    let bookTitle = document.getElementById("bookTitle").value;
-    let bookAuthor = document.getElementById("bookAuthor").value;
-    let bookPages = document.getElementById("bookPageCount").value;
+    let id = library.length;
+    let title = document.getElementById('title').value;
+    let author = document.getElementById('author').value;
+    let yearPublished = document.getElementById('yearPublished').value;
 
-    //to make a unique name for each book
-    let assignedNum = myLib.length;
-    let id = assignedNum.toString();
-
-    myLib.push(new Book(id,bookTitle,bookAuthor,bookPages));
-    
-    for(let i = 0; i < myLib.length; i++){
-        console.log("ID: " + myLib[i].id);
-        console.log("Book Title: " + myLib[i].title);
-        console.log("Book Author: " + myLib[i].author);
-        console.log("Book Page: " + myLib[i].pages);
+    if(title == '' || author == '' || yearPublished == ''){
+        alert('Give all the details');
+    }else if(title.length > 40 || author.length > 40 || yearPublished.length > 40){
+        alert('Only accepting 40 characters below');
     }
-
-    modal.style.display = "none";
-
-    let div = document.createElement("div");
-    div.classList.add("card");
-    div.setAttribute('id',`${id}`);
-    div.innerHTML = "<div class='bookInfo'>Title: " + bookTitle + "<br>"
-                    + "Author: " + bookAuthor + "<br>"
-                    + "Pages: " + bookPages + "</div>"
-                    + `<div class='bookButtons'><button class='delButton' onclick='deleteBook(${id})'>DELETE</button>`
-                    + `<button id ='readStatus${id}' class='readButton' onclick='readBook(${id})'>READ</button></div>`;
-
-    document.getElementById("content").appendChild(div);
-
-    //clear input field after submitting
-    var allInputs = document.querySelectorAll('input');
-    allInputs.forEach(singleInput => singleInput.value = '');
-
-}
-
-function deleteBook(id){
-    console.log(id);
-    cards = document.getElementById(id).remove();
-    myLib = myLib.filter(book => book.id != id);
-
-}
-
-function readBook(id){
-    readButton = document.getElementById("readStatus"+id);
-
-    if (readButton.textContent == "READ"){
-        readButton.textContent = "UNREAD";
-        readButton.style.background = "#FF4FFF";
-    }else{
-        readButton.textContent = "READ";
-        readButton.style.background = "";
+    else{
+        library.push(Book(id,title,author,yearPublished));    
+        createCard(id,title,author,yearPublished);
+        clear();
     }
-    
 }
 
+function createCard(id,title,author,yearPublished,){
+    mainDiv = document.createElement('div');
+    titleDiv = document.createElement('div');
+    authorYearDiv = document.createElement('div');
+    buttonsDiv = document.createElement('div');
+    deleteButton = document.createElement('button');
+    readButton = document.createElement('button');
+
+    mainDiv.setAttribute('id',id);
+    mainDiv.classList.add('card');
+    mainDiv.classList.add('card-flex');
+    titleDiv.innerHTML = "Title: " + title;
+    authorYearDiv.classList.add('card-flex');
+    buttonsDiv.classList.add('buttons-flex');
+
+    deleteButton.classList.add(id);
+    deleteButton.setAttribute('id','delete-button');
+    deleteButton.innerHTML = "DELETE";
+    deleteButton.addEventListener('click', (e)=>{
+        removeCard(e);
+    })
+
+    readButton.setAttribute('id','read-button');
+    readButton.innerHTML = 'NOT READ';
+    readButton.addEventListener('click',(e) => {
+        currText = e.target.innerHTML;
+        (currText == 'NOT READ') ? e.target.innerHTML = 'READ' : e.target.innerHTML = 'NOT READ';
+    });
+
+    authorYearDiv.innerHTML = `<center>Author: ${author}<br>Year Published: ${yearPublished}</center>`;
+
+    buttonsDiv.append(deleteButton,readButton);
+    mainDiv.append(titleDiv,authorYearDiv,buttonsDiv);
+    container.appendChild(mainDiv);
+    modal.style.display = "none"
+}
+
+function removeCard(e){
+    let curr = document.getElementById(e.target.className);
+    curr.parentNode.removeChild(curr);
+    library.splice(e.target.className,1);
+}
+
+function clear(){
+    document.getElementById('title').value = '';
+    document.getElementById('author').value = '';
+    document.getElementById('yearPublished').value = '';
+}

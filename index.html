@@ -5,49 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="script.js" defer></script>
   <link rel="stylesheet" href="style.css">
-  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Simple Library</title>
 </head>
 <body>
-  <div class="header">
-    <h1>Library</h1>
-    <button id="openBookForm">New Book</button>
-  </div>
-  <div class="content" id="content">
-    
-  </div>
   <div id="myModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
         <span class="close">&times;</span>
-        <h2>Add New Book</h2>
+        <h2>ADD BOOK</h2>
       </div>
       <div class="modal-body">
-        <div>
-          <form action="" class="bookForm">
-            <div>
-              <label for="bookTitle"><h4>Title</h4></label>
-              <input type="text" id="bookTitle" name="bookTitle">
-            </div>
-            <div>
-              <label for="bookAuthor"><h4>Author</h4></label>
-              <input type="text" id="bookAuthor" name="bookAuthor">
-            </div>
-            <div>
-              <label for="bookPageCount"><h4>Pages</h4></label>
-              <input type="number" id="bookPageCount" name="bookPageCount">
-            </div>
-            <br>
-            <div class="formSubmitButton">
-              <button class="submitButton" type="button" onclick="addBookToLibrary()">Submit</button>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <h3>Made by Shade</h3>
+        <center>
+          <div>
+            <label for="title">Title</label><br>
+            <input type="text" name="title" id="title">
+          </div><br>
+          <div>
+            <label for="author">Author</label><br>
+            <input type="text" name="author" id="author">
+          </div><br>
+          <div>
+            <label for="yearPublished">Year Published</label><br>
+            <input type="text" name="yearPublished" id="yearPublished">
+          </div><br>
+          <button class="submit-button">SUBMIT</button>
+        </center>
       </div>
     </div>
-  
+  </div>
+  <div class="container flex">
+    <div class="card card-flex"><button title="Add Book" id="openBookModal"><i class="fa fa-plus" style="font-size:48px"></i></button></div>
   </div>
 </body>
 </html>
